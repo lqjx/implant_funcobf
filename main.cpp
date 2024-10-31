@@ -6,6 +6,8 @@
  author: reenz0h (twitter: @sektor7net)
 
 */
+#include <iostream>
+#include <ostream>
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -67,9 +69,8 @@ int main(void) {
 	char key[] = "";
 	exec_mem = VirtualAlloc(0, calc_len, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
 
-
-	printf("%-20s : 0x%-016p\n", "calc_payload addr", static_cast<void*>(calc_payload));
-	printf("%-20s : 0x%-016p\n", "exec_mem addr", static_cast<void*>(exec_mem));
+	std::cout << "execMemory address: " << static_cast<void*>(calc_payload) << "\n";
+	std::cout << "execMemory address: " << static_cast<void*>(exec_mem) << "\n";
 
 	//XOR((char *) calc_payload, calc_len, key, sizeof(key));
 
